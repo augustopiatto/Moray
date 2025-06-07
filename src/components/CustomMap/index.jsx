@@ -4,6 +4,7 @@ import { TileLayer } from 'react-leaflet/TileLayer';
 import { GeoJSON } from 'react-leaflet/GeoJSON';
 import { lazy, Suspense, useCallback, useState } from 'react';
 import Loader from '../../lib/Loader';
+import { LayersControl } from 'react-leaflet';
 const PopulationModal = lazy(() => import('../PopulationModal'));
 
 CustomMap.propTypes = {
@@ -106,7 +107,18 @@ function CustomMap({ geojson, population }) {
           url="https://api.maptiler.com/maps/streets-v2/{z}/{x}/{y}.png?key=BcCw9iWXRyBExU9XfTBr"
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         />
-        {geojson && <GeoJSON data={geojson} style={geoJsonStyle} onEachFeature={onEachFeature} />}
+        <LayersControl position="topright">
+          {geojson &&
+            geojson.features.map((feature) => (
+              <LayersControl.Overlay
+                key={feature.properties.id}
+                name={feature.properties.name}
+                checked
+              >
+                <GeoJSON data={feature} style={geoJsonStyle} onEachFeature={onEachFeature} />
+              </LayersControl.Overlay>
+            ))}
+        </LayersControl>
       </MapContainer>
       {isOpened && (
         <Suspense fallback={<Loader />}>
