@@ -1,0 +1,24 @@
+.error-toast {
+  position: absolute;
+  bottom: 20px;
+  right: 8px;
+  z-index: 9999;
+  background-color: #F8D7DA;
+  padding: 8px 12px;
+  border-radius: 4px;
+  max-width: 400px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  .toast__content {
+    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    color: #721C24;
+  }
+
+  button {
+    flex-shrink: 0;
+  }
+}

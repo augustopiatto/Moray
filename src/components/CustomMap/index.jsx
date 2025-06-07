@@ -6,17 +6,17 @@ import { useState } from 'react';
 import PopulationModal from '../PopulationModal';
 
 CustomMap.propTypes = {
-  geojson: PropTypes.object.isRequired,
+  geojson: PropTypes.object,
   population: PropTypes.arrayOf(
     PropTypes.shape({
       id_geometria: PropTypes.number.isRequired,
       ano: PropTypes.string.isRequired,
       populacao: PropTypes.number.isRequired,
     })
-  ).isRequired,
+  ),
 };
 
-function getColor(id) {
+const getColor = (id) => {
   const colors = [
     '#6C58FF',
     '#FF6B6B',
@@ -30,7 +30,7 @@ function getColor(id) {
     '#FAB005',
   ];
   return colors[id % colors.length];
-}
+};
 
 function CustomMap({ geojson, population }) {
   const [isOpened, setIsOpened] = useState(false);
