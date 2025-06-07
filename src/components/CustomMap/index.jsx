@@ -2,8 +2,9 @@ import PropTypes from 'prop-types';
 import { MapContainer } from 'react-leaflet/MapContainer';
 import { TileLayer } from 'react-leaflet/TileLayer';
 import { GeoJSON } from 'react-leaflet/GeoJSON';
-import { useState } from 'react';
-import PopulationModal from '../PopulationModal';
+import { lazy, Suspense, useCallback, useState } from 'react';
+import Loader from '../Loader';
+const PopulationModal = lazy(() => import('../PopulationModal'));
 
 CustomMap.propTypes = {
   geojson: PropTypes.object,
@@ -37,37 +38,46 @@ function CustomMap({ geojson, population }) {
   const [selectedPopulation, setSelectedPopulation] = useState(null);
   const [selectedNeighborhood, setSelectedNeighborhood] = useState(null);
 
-  const openModal = (value) => {
-    setIsOpened(true);
-    const filteredPopulation = population.filter(
-      (pop) => pop.id_geometria === value.layer.feature.properties.id
-    );
-    setSelectedPopulation(filteredPopulation);
-    setSelectedNeighborhood(value.layer.feature.properties);
-  };
+  const openModal = useCallback(
+    (value) => {
+      setIsOpened(true);
+      const filteredPopulation = population.filter(
+        (pop) => pop.id_geometria === value.layer.feature.properties.id
+      );
+      setSelectedPopulation(filteredPopulation);
+      setSelectedNeighborhood(value.layer.feature.properties);
+    },
+    [population]
+  );
 
   const onClose = () => {
     setIsOpened(false);
   };
 
-  const geoJsonStyle = (feature) => ({
-    color: getColor(feature.properties.id),
-    weight: 2,
-    fillOpacity: 0.5,
-    fillColor: getColor(feature.properties.id),
-  });
+  const geoJsonStyle = useCallback(
+    (feature) => ({
+      color: getColor(feature.properties.id),
+      weight: 2,
+      fillOpacity: 0.5,
+      fillColor: getColor(feature.properties.id),
+    }),
+    []
+  );
 
-  const onEachFeature = (feature, layer) => {
-    if (feature.properties && feature.properties.name) {
-      layer.bindTooltip(feature.properties.name, {
-        permanent: true,
-        direction: 'center',
+  const onEachFeature = useCallback(
+    (feature, layer) => {
+      if (feature.properties && feature.properties.name) {
+        layer.bindTooltip(feature.properties.name, {
+          permanent: true,
+          direction: 'center',
+        });
+      }
+      layer.on({
+        click: () => openModal({ layer }),
       });
-    }
-    layer.on({
-      click: () => openModal({ layer }),
-    });
-  };
+    },
+    [openModal]
+  );
 
   return (
     <>
@@ -86,11 +96,13 @@ function CustomMap({ geojson, population }) {
         {geojson && <GeoJSON data={geojson} style={geoJsonStyle} onEachFeature={onEachFeature} />}
       </MapContainer>
       {isOpened && (
-        <PopulationModal
-          onClose={onClose}
-          selectedPopulation={selectedPopulation}
-          selectedNeighborhood={selectedNeighborhood}
-        />
+        <Suspense fallback={<Loader />}>
+          <PopulationModal
+            onClose={onClose}
+            selectedPopulation={selectedPopulation}
+            selectedNeighborhood={selectedNeighborhood}
+          />
+        </Suspense>
       )}
     </>
   );
