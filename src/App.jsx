@@ -21,7 +21,13 @@ function App() {
     getGeojson(), getPopulation();
   }, []);
 
-  return <CustomMap style={{ height: '100vh' }} geojson={geojson} population={population} />;
+  return (
+    <>
+      {geojson && population && (
+        <CustomMap style={{ height: '100vh' }} geojson={geojson} population={population} />
+      )}
+    </>
+  );
 }
 
 export default App;

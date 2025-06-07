@@ -5,18 +5,18 @@ import { GeoJSON } from 'react-leaflet/GeoJSON';
 import { useState } from 'react';
 import PopulationModal from '../PopulationModal';
 
-function CustomMap({ geojson, population }) {
-  CustomMap.propTypes = {
-    geojson: PropTypes.object.isRequired,
-    population: PropTypes.arrayOf(
-      PropTypes.shape({
-        id_geometria: PropTypes.number.isRequired,
-        ano: PropTypes.string.isRequired,
-        populacao: PropTypes.number.isRequired,
-      })
-    ).isRequired,
-  };
+CustomMap.propTypes = {
+  geojson: PropTypes.object.isRequired,
+  population: PropTypes.arrayOf(
+    PropTypes.shape({
+      id_geometria: PropTypes.number.isRequired,
+      ano: PropTypes.string.isRequired,
+      populacao: PropTypes.number.isRequired,
+    })
+  ).isRequired,
+};
 
+function CustomMap({ geojson, population }) {
   const [isOpened, setIsOpened] = useState(false);
   const [selectedPopulation, setSelectedPopulation] = useState(null);
   const [selectedNeighborhood, setSelectedNeighborhood] = useState(null);
