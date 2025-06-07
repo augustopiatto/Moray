@@ -1,9 +1,44 @@
 // import { GeoJSON } from 'react-leaflet/GeoJSON';
 import { MapContainer } from 'react-leaflet/MapContainer';
 import { TileLayer } from 'react-leaflet/TileLayer';
+import { GeoJSON } from 'react-leaflet/GeoJSON';
 import 'leaflet/dist/leaflet.css';
+import { useEffect, useState } from 'react';
+import axios from 'axios'
+import PopulationModal from './components/PopulationModal'
 
 function App() {
+  const [geojson, setGeojson] = useState(null)
+  const [population, setPopulation] = useState(null)
+  const [selectedPopulation, setSelectedPopulation] = useState(null)
+  const [selectedNeighborhood, setSelectedNeighborhood] = useState(null)
+  const [isOpened, setIsOpened] = useState(false)
+
+  const openModal = (value) => {
+      setIsOpened(true)
+      const filteredPopulation = population.filter((pop) => pop.id_geometria === value.layer.feature.properties.id)
+      setSelectedPopulation(filteredPopulation)
+      setSelectedNeighborhood(value.layer.feature.properties)
+  }
+  const onClose = () => {
+      setIsOpened(false)
+  }
+
+  const getGeojson = async () => {
+    const {data} = await axios.get('/bairros-geojson')
+    setGeojson(data)
+  }
+
+  const getPopulation = async () => {
+    const {data} = await axios.get('/populacao')
+    setPopulation(data)
+  }
+
+  useEffect(() => {
+    getGeojson(),
+    getPopulation()
+  }, [])
+
   return (
     <>
       <MapContainer
@@ -17,19 +52,19 @@ function App() {
         />
 
         {/* Componente que renderiza as geometrias dos bairros */}
-        {/* {geojson && (
+        {geojson && (
           <GeoJSON
             data={geojson}
             style={{ color: '#6c58ff' }}
             eventHandlers={{
               click: (event) => {
-                // Quando o usuário clicar em um bairro no mapa, essa função será executada
-                console.log('feature (bairro):', event.sourceTarget.feature);
+                openModal(event)
               },
             }}
           />
-        )} */}
+        )}
       </MapContainer>
+      {isOpened && <PopulationModal onClose={onClose} selectedPopulation={selectedPopulation} selectedNeighborhood={selectedNeighborhood} />}
     </>
   );
 }
