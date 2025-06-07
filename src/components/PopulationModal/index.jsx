@@ -9,6 +9,8 @@ PopulationModal.propTypes = {
   selectedNeighborhood: PropTypes.shape({
     name: PropTypes.string.isRequired,
     id: PropTypes.number.isRequired,
+    setor: PropTypes.string.isRequired,
+    zona: PropTypes.string.isRequired,
   }).isRequired,
   selectedPopulation: PropTypes.arrayOf(
     PropTypes.shape({
@@ -36,11 +38,19 @@ function PopulationModal({ onClose, selectedNeighborhood, selectedPopulation }) 
         <Button className="modal__close-button" circle flat onClick={onClose}>
           X
         </Button>
+        <div className="modal__neighborhood-info">
+          <p>
+            <strong>Setor:</strong> {selectedNeighborhood.setor}
+          </p>
+          <p>
+            <strong>Zona:</strong> {selectedNeighborhood.zona}
+          </p>
+        </div>
         <LineChart
           width={500}
           height={400}
           data={mapData}
-          margin={{ top: 30, right: 10, bottom: 20, left: 30 }}
+          margin={{ top: 10, right: 10, bottom: 20, left: 30 }}
         >
           <Line type="monotone" dataKey="uv" stroke="#8884d8" />
           <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
