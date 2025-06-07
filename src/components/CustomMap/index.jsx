@@ -74,6 +74,19 @@ function CustomMap({ geojson, population }) {
       }
       layer.on({
         click: () => openModal({ layer }),
+        mouseover: function () {
+          layer.setStyle({
+            fillOpacity: 0.6,
+            weight: 3,
+          });
+          layer.bringToFront();
+        },
+        mouseout: function () {
+          layer.setStyle({
+            fillOpacity: 0.5,
+            weight: 2,
+          });
+        },
       });
     },
     [openModal]
