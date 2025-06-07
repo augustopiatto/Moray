@@ -16,6 +16,22 @@ CustomMap.propTypes = {
   ).isRequired,
 };
 
+function getColor(id) {
+  const colors = [
+    '#6C58FF',
+    '#FF6B6B',
+    '#51CF66',
+    '#FFD43B',
+    '#339AF0',
+    '#F783AC',
+    '#FFA94D',
+    '#63E6BE',
+    '#845EF7',
+    '#FAB005',
+  ];
+  return colors[id % colors.length];
+}
+
 function CustomMap({ geojson, population }) {
   const [isOpened, setIsOpened] = useState(false);
   const [selectedPopulation, setSelectedPopulation] = useState(null);
@@ -33,6 +49,14 @@ function CustomMap({ geojson, population }) {
   const onClose = () => {
     setIsOpened(false);
   };
+
+  const geoJsonStyle = (feature) => ({
+    color: getColor(feature.properties.id),
+    weight: 2,
+    fillOpacity: 0.5,
+    fillColor: getColor(feature.properties.id),
+  });
+
   return (
     <>
       <MapContainer
@@ -50,7 +74,7 @@ function CustomMap({ geojson, population }) {
         {geojson && (
           <GeoJSON
             data={geojson}
-            style={{ color: '#6c58ff' }}
+            style={geoJsonStyle}
             eventHandlers={{
               click: (event) => {
                 openModal(event);
