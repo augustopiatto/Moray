@@ -57,6 +57,18 @@ function CustomMap({ geojson, population }) {
     fillColor: getColor(feature.properties.id),
   });
 
+  const onEachFeature = (feature, layer) => {
+    if (feature.properties && feature.properties.name) {
+      layer.bindTooltip(feature.properties.name, {
+        permanent: true,
+        direction: 'center',
+      });
+    }
+    layer.on({
+      click: () => openModal({ layer }),
+    });
+  };
+
   return (
     <>
       <MapContainer
@@ -71,17 +83,7 @@ function CustomMap({ geojson, population }) {
           url="https://api.maptiler.com/maps/streets-v2/{z}/{x}/{y}.png?key=BcCw9iWXRyBExU9XfTBr"
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         />
-        {geojson && (
-          <GeoJSON
-            data={geojson}
-            style={geoJsonStyle}
-            eventHandlers={{
-              click: (event) => {
-                openModal(event);
-              },
-            }}
-          />
-        )}
+        {geojson && <GeoJSON data={geojson} style={geoJsonStyle} onEachFeature={onEachFeature} />}
       </MapContainer>
       {isOpened && (
         <PopulationModal
