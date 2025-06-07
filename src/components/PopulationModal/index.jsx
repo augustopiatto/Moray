@@ -3,6 +3,7 @@ import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip } from 'recharts'
 import './styles.scss';
 import CustomTooltip from './CustomTooltip';
 import Button from '../../lib/Button';
+import { useMemo } from 'react';
 
 PopulationModal.propTypes = {
   onClose: PropTypes.func.isRequired,
@@ -21,15 +22,19 @@ PopulationModal.propTypes = {
 };
 
 function PopulationModal({ onClose, selectedNeighborhood, selectedPopulation }) {
-  const mapData = selectedPopulation.map((population) => ({
-    name: population.ano,
-    uv: population.populacao,
-    pv: 2400,
-    amt: 2400,
-  }));
+  const mapData = useMemo(
+    () =>
+      selectedPopulation.map((population) => ({
+        name: population.ano,
+        uv: population.populacao,
+        pv: 2400,
+        amt: 2400,
+      })),
+    [selectedPopulation]
+  );
 
-  const minPopulation = Math.min(...mapData.map((data) => data.uv));
-  const yMin = minPopulation - 200;
+  const minPopulation = useMemo(() => Math.min(...mapData.map((data) => data.uv)), [mapData]);
+  const yMin = useMemo(() => minPopulation - 200, [minPopulation]);
 
   return (
     <>
@@ -50,7 +55,7 @@ function PopulationModal({ onClose, selectedNeighborhood, selectedPopulation }) 
           width={500}
           height={400}
           data={mapData}
-          margin={{ top: 10, right: 10, bottom: 20, left: 30 }}
+          margin={{ top: 0, right: 10, bottom: 20, left: 30 }}
         >
           <Line type="monotone" dataKey="uv" stroke="#8884d8" />
           <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />

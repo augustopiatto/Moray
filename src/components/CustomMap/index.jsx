@@ -3,7 +3,7 @@ import { MapContainer } from 'react-leaflet/MapContainer';
 import { TileLayer } from 'react-leaflet/TileLayer';
 import { GeoJSON } from 'react-leaflet/GeoJSON';
 import { lazy, Suspense, useCallback, useState } from 'react';
-import Loader from '../Loader';
+import Loader from '../../lib/Loader';
 const PopulationModal = lazy(() => import('../PopulationModal'));
 
 CustomMap.propTypes = {
