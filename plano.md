@@ -7,5 +7,5 @@ Minha intenção de como melhorar o projeto será através dos seguintes passos:
 4. Colocar algum identificador visual do bairro, para que usuário não precise abrir modal por modal para ver qual é o bairro que deseja (tooltip ou nome fixo em cima da demarcação?) ✅
 5. Otimizar performance (uso de hooks) ✅
 6. Criar testes ✅
-7. Criar um pequeno design system ➖
-8. Colocar uma barra de busca de bairro ➖
+7. Colocar uma barra de busca de bairro ➖
+8. Criar um pequeno design system ➖

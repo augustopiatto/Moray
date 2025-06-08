@@ -2,9 +2,10 @@ import PropTypes from 'prop-types';
 import { MapContainer } from 'react-leaflet/MapContainer';
 import { TileLayer } from 'react-leaflet/TileLayer';
 import { GeoJSON } from 'react-leaflet/GeoJSON';
-import { lazy, Suspense, useCallback, useState } from 'react';
+import { lazy, Suspense, useCallback, useRef, useState } from 'react';
 import Loader from '../../lib/Loader';
 import { LayersControl } from 'react-leaflet';
+import SearchBar from '../SearchBar';
 const PopulationModal = lazy(() => import('../PopulationModal'));
 
 CustomMap.propTypes = {
@@ -38,18 +39,38 @@ function CustomMap({ geojson, population }) {
   const [isOpened, setIsOpened] = useState(false);
   const [selectedPopulation, setSelectedPopulation] = useState(null);
   const [selectedNeighborhood, setSelectedNeighborhood] = useState(null);
+  const [search, setSearch] = useState('');
+  const [highlightedId, setHighlightedId] = useState(null);
 
-  const openModal = useCallback(
-    (value) => {
-      setIsOpened(true);
-      const filteredPopulation = population.filter(
-        (pop) => pop.id_geometria === value.layer.feature.properties.id
-      );
-      setSelectedPopulation(filteredPopulation);
-      setSelectedNeighborhood(value.layer.feature.properties);
-    },
-    [population]
-  );
+  const mapRef = useRef();
+
+  const handleInputChange = useCallback((event) => {
+    setSearch(event.target.value);
+    if (!event.target.value) setHighlightedId(null);
+  }, []);
+
+  const handleSearch = useCallback(() => {
+    if (!geojson) return;
+    const found = geojson.features.find((feature) =>
+      feature.properties.name.toLowerCase().includes(search.toLowerCase())
+    );
+    if (found) {
+      setHighlightedId(found.properties.id);
+      if (mapRef.current) {
+        const layer = L.geoJSON(found);
+        mapRef.current.fitBounds(layer.getBounds());
+      }
+    }
+  }, [geojson, search]);
+
+  function openModal(value) {
+    setIsOpened(true);
+    const filteredPopulation = population.filter(
+      (pop) => pop.id_geometria === value.layer.feature.properties.id
+    );
+    setSelectedPopulation(filteredPopulation);
+    setSelectedNeighborhood(value.layer.feature.properties);
+  }
 
   const onClose = () => {
     setIsOpened(false);
@@ -58,11 +79,11 @@ function CustomMap({ geojson, population }) {
   const geoJsonStyle = useCallback(
     (feature) => ({
       color: getColor(feature.properties.id),
-      weight: 2,
-      fillOpacity: 0.5,
+      weight: highlightedId === feature.properties.id ? 6 : 2,
+      fillOpacity: highlightedId === feature.properties.id ? 0.8 : 0.5,
       fillColor: getColor(feature.properties.id),
     }),
-    []
+    [highlightedId]
   );
 
   const onEachFeature = useCallback(
@@ -95,7 +116,9 @@ function CustomMap({ geojson, population }) {
 
   return (
     <>
+      <SearchBar value={search} onChange={handleInputChange} onSearch={handleSearch} />
       <MapContainer
+        ref={mapRef}
         style={{ height: '100vh' }}
         bounds={[
           [-23.234708, -45.928813],
