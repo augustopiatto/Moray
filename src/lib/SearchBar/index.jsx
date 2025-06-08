@@ -1,59 +1,74 @@
 import PropTypes from 'prop-types';
 import Button from '../Button';
+import { useMemo, useState } from 'react';
 import './styles.scss';
-import { useState } from 'react';
 
 SearchBar.propTypes = {
-  value: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired,
-  onSearch: PropTypes.func.isRequired,
-  suggestions: PropTypes.array,
-  onSuggestionClick: PropTypes.func,
+  items: PropTypes.arrayOf(
+    PropTypes.shape({
+      properties: PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        name: PropTypes.string.isRequired,
+      }).isRequired,
+    })
+  ),
+  onItemSelect: PropTypes.func,
   placeholder: PropTypes.string,
-  selected: PropTypes.bool,
 };
 
-function SearchBar({
-  value,
-  onChange,
-  onSearch,
-  suggestions = [],
-  onSuggestionClick,
-  placeholder,
-  selected,
-}) {
+function SearchBar({ items = [], onItemSelect, placeholder }) {
+  const [input, setInput] = useState('');
   const [isFocused, setIsFocused] = useState(false);
+  const [selectedItem, setSelectedItem] = useState(null);
+
+  const filtered = useMemo(() => {
+    return items.filter((item) => item.properties.name.toLowerCase().includes(input.toLowerCase()));
+  }, [items, input]);
+
+  const handleInputChange = (event) => {
+    setInput(event.target.value);
+    setSelectedItem(null);
+  };
+
+  const handleSuggestionClick = (feature) => {
+    setInput(feature.properties.name);
+    setSelectedItem(feature);
+    if (onItemSelect) onItemSelect(feature);
+  };
 
   return (
     <div className="search-bar">
       <input
         className="search-bar__input"
-        type="text"
-        placeholder={placeholder || 'Buscar...'}
-        value={value}
-        onChange={onChange}
+        value={input}
+        onChange={handleInputChange}
         onFocus={() => setIsFocused(true)}
-        onBlur={() => setTimeout(() => setIsFocused(false), 150)}
-        onKeyDown={(event) => {
-          if (event.key === 'Enter' && selected) {
-            onSearch();
+        onBlur={() => setIsFocused(false)}
+        placeholder={placeholder}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' && selectedItem) {
+            if (onItemSelect) onItemSelect(selectedItem);
           }
         }}
       />
-      {isFocused && suggestions.length > 0 && (
+      {isFocused && filtered.length > 0 && (
         <ul className="search-bar__dropdown">
-          {suggestions.map((feature) => (
+          {filtered.map((feature) => (
             <li
               className="dropdown__item"
               key={feature.properties.id}
-              onClick={() => onSuggestionClick(feature)}
+              onClick={() => handleSuggestionClick(feature)}
             >
               {feature.properties.name}
             </li>
           ))}
         </ul>
       )}
-      <Button className="search-bar__button" disabled={!selected} onClick={onSearch}>
+      <Button
+        className="search-bar__button"
+        disabled={!selectedItem}
+        onClick={() => selectedItem && onItemSelect(selectedItem)}
+      >
         Buscar
       </Button>
     </div>

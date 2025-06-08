@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { MapContainer } from 'react-leaflet/MapContainer';
 import { TileLayer } from 'react-leaflet/TileLayer';
 import { GeoJSON } from 'react-leaflet/GeoJSON';
-import { lazy, Suspense, useCallback, useRef, useState, useMemo } from 'react';
+import { lazy, Suspense, useCallback, useRef, useState } from 'react';
 import Loader from '../../lib/Loader';
 import { LayersControl } from 'react-leaflet';
 import SearchBar from '../../lib/SearchBar';
@@ -40,46 +40,9 @@ function CustomMap({ geojson, population }) {
   const [isOpened, setIsOpened] = useState(false);
   const [selectedPopulation, setSelectedPopulation] = useState(null);
   const [selectedNeighborhood, setSelectedNeighborhood] = useState(null);
-  const [search, setSearch] = useState('');
   const [highlightedId, setHighlightedId] = useState(null);
-  const [selected, setSelected] = useState(false);
 
   const mapRef = useRef();
-
-  const filteredNeighborhoods = useMemo(() => {
-    if (!geojson) return [];
-    return geojson.features.filter((feature) =>
-      feature.properties.name.toLowerCase().includes(search.toLowerCase())
-    );
-  }, [geojson, search]);
-
-  const handleInputChange = useCallback((event) => {
-    setSearch(event.target.value);
-    setSelected(false);
-    if (!event.target.value) setHighlightedId(null);
-  }, []);
-
-  const handleSearch = useCallback(() => {
-    if (!geojson || !selected) return;
-    const found = geojson.features.find((feature) => feature.properties.name === search);
-    if (found) {
-      setHighlightedId(found.properties.id);
-      if (mapRef.current) {
-        const layer = L.geoJSON(found);
-        mapRef.current.fitBounds(layer.getBounds());
-      }
-    }
-  }, [geojson, search, selected]);
-
-  const handleSuggestionClick = useCallback((feature) => {
-    setSearch(feature.properties.name);
-    setHighlightedId(feature.properties.id);
-    setSelected(true);
-    if (mapRef.current) {
-      const layer = L.geoJSON(feature);
-      mapRef.current.fitBounds(layer.getBounds());
-    }
-  }, []);
 
   function openModal(value) {
     setIsOpened(true);
@@ -133,13 +96,15 @@ function CustomMap({ geojson, population }) {
   return (
     <>
       <SearchBar
-        value={search}
-        onChange={handleInputChange}
-        onSearch={handleSearch}
-        suggestions={filteredNeighborhoods}
-        onSuggestionClick={handleSuggestionClick}
+        items={geojson ? geojson.features : []}
+        onItemSelect={(feature) => {
+          setHighlightedId(feature.properties.id);
+          if (mapRef.current) {
+            const layer = L.geoJSON(feature);
+            mapRef.current.fitBounds(layer.getBounds());
+          }
+        }}
         placeholder="Buscar bairros..."
-        selected={selected}
       />
       <MapContainer
         ref={mapRef}
