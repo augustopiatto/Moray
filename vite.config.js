@@ -10,6 +10,7 @@ export default defineConfig({
         additionalData: `
           @import "./src/assets/styles/__border-radius.module.scss";
           @import "./src/assets/styles/__colors.module.scss";
+          @import "./src/assets/styles/__grid.module.scss";
           @import "./src/assets/styles/__fonts.module.scss";
           @import "./src/assets/styles/__spacers.module.scss";
         `,

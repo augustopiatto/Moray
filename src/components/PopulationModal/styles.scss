@@ -1,7 +1,7 @@
 .population-modal {
   position: absolute;
   top: 10px;
-  left: 60px;
+  left: 10px;
   z-index: 9999;
   background-color: white;
   padding: $spacing-xl;
@@ -10,19 +10,60 @@
   flex-direction: column;
   gap: $spacing-m;
 
+  @include d(m) {
+    padding: $spacing-sm;
+  }
+
   .modal__title {
     @include heading-large;
+    max-width: calc(100% - 44px);
+
+    @include d(t) {
+      @include heading-small;
+    }
+
+    @include d(m) {
+      max-width: calc(100% - 34px);
+      @include heading-x-small;
+    }
   }
 
   .modal__close-button {
     position: absolute;
     top: $spacing-xl;
     right: $spacing-xl;
+
+    @include d(m) {
+      height: 24px;
+      width: 24px;
+      top: $spacing-sm;
+      right: $spacing-sm;
+    }
   }
 
   .modal__neighborhood-info {
     display: flex;
     flex-direction: column;
     gap: $spacing-xs;
+
+    p {
+      @include paragraph-medium;
+
+      @include d(m) {
+        @include paragraph-small;
+      }
+    }
+  }
+
+  .recharts-wrapper {
+    @include d(t) {
+      height: 240px !important;
+      width: 300px !important;
+    }
+
+    @include d(m) {
+      height: 190px !important;
+      width: 230px !important;
+    }
   }
 }

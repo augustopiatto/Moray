@@ -9,6 +9,7 @@ Minha intenção de como melhorar o projeto será através dos seguintes passos:
 6. Criar testes ✅
 7. Colocar uma barra de busca de bairro ✅
 8. Criar um pequeno design system ✅
+9. Responsividade ✅
 
 Explicação da lógica:
 

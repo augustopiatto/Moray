@@ -10,7 +10,7 @@ ErrorToast.propTypes = {
 function ErrorToast({ children, onClose }) {
   return (
     <div className="error-toast">
-      <div className="toast__content">{children}</div>
+      <p className="toast__content">{children}</p>
       <Button circle color="transparent" flat onClick={onClose}>
         X
       </Button>

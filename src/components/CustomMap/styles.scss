@@ -1,8 +1,18 @@
 .population-modal-loader {
   position: absolute;
   top: 10px;
-  left: 60px;
+  left: 10px;
   height: 556px;
   width: 548px;
   border-radius: $border-radius-m;
+
+  @include d(t) {
+    height: 384px;
+    width: 348px;
+  }
+
+  @include d(m) {
+    height: 294px;
+    width: 238px;
+  }
 }

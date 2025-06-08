@@ -1,7 +1,7 @@
 .error-toast {
   position: absolute;
-  bottom: $spacing-xl;
-  right: $spacing-sm;
+  bottom: 26px;
+  right: 54px;
   z-index: 9999;
   background-color: $red-light-100;
   padding: $spacing-sm $spacing-m;
@@ -11,9 +11,27 @@
   align-items: center;
   gap: $spacing-m;
 
+  @include d(t) {
+    top: 10px;
+    left: 10px;
+    height: fit-content;
+    width: fit-content;
+    max-width: 694px;
+  }
+
+  @include d(m) {
+    top: 10px;
+    left: 10px;
+    height: fit-content;
+    width: fit-content;
+    max-width: 246px;
+  }
+
   .toast__content {
     @include label-medium;
     color: $red-dark-100;
+    white-space: normal;
+    word-break: break-word;
   }
 
   button {

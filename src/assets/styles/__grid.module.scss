@@ -1,0 +1,16 @@
+$tablet-size: 1263px;
+$mobile-size: 767px;
+
+@mixin d($device) {
+  @if $device ==t {
+    @media (min-width: 768px) and (max-width: $tablet-size) {
+      @content;
+    }
+  }
+
+  @else if $device ==m {
+    @media (max-width: $mobile-size) {
+      @content;
+    }
+  }
+}

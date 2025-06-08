@@ -1,12 +1,22 @@
 .search-bar {
   position: absolute;
   z-index: 9999;
-  top: 10px;
+  bottom: 10px;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
   align-items: center;
-  gap: $spacing-m;
+  gap: $spacing-sm;
+
+  @include d(t) {
+    bottom: 28px;
+  }
+
+  @include d(m) {
+    bottom: 28px;
+    left: 10px;
+    transform: none;
+  }
 
   .search-bar__input {
     @include paragraph-small;
@@ -16,12 +26,20 @@
     border-radius: $border-radius-sm;
     border: 1px solid $color-border-dark;
     position: relative;
+
+    @include d(t) {
+      width: 300px;
+    }
+
+    @include d(m) {
+      width: 200px;
+    }
   }
 
   .search-bar__dropdown {
     @include paragraph-small;
     position: absolute;
-    top: calc(44px + $spacing-xs);
+    bottom: calc(44px + $spacing-xs);
     left: 0;
     z-index: 9999;
     width: 100%;
@@ -45,8 +63,8 @@
   .search-bar__button {
     @include label-small;
     height: 44px;
+    width: 44px;
     background-color: $color-background-secondary;
     color: $color-text-white;
-    padding: $spacing-sm $spacing-l;
   }
 }

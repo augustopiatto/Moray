@@ -4,7 +4,7 @@ import { TileLayer } from 'react-leaflet/TileLayer';
 import { GeoJSON } from 'react-leaflet/GeoJSON';
 import { lazy, Suspense, useCallback, useRef, useState } from 'react';
 import Loader from '../../lib/Loader';
-import { LayersControl } from 'react-leaflet';
+import { LayersControl, ZoomControl } from 'react-leaflet';
 import L from 'leaflet';
 import SearchBar from '../../lib/SearchBar';
 import './styles.scss';
@@ -118,11 +118,13 @@ function CustomMap({ geojson, population }) {
           [-23.198917, -45.900761],
         ]}
         zoom={15}
+        zoomControl={false}
       >
         <TileLayer
           url="https://api.maptiler.com/maps/streets-v2/{z}/{x}/{y}.png?key=BcCw9iWXRyBExU9XfTBr"
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         />
+        <ZoomControl position="bottomright" />
         <LayersControl position="topright">
           {geojson &&
             geojson.features.map((feature) => (

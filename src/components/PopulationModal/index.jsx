@@ -52,8 +52,8 @@ function PopulationModal({ onClose, selectedNeighborhood, selectedPopulation }) 
           </p>
         </div>
         <LineChart
-          width={500}
           height={400}
+          width={500}
           data={mapData}
           margin={{ top: 0, right: 10, bottom: 20, left: 30 }}
         >

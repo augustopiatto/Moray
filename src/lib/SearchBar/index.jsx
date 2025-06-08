@@ -69,7 +69,19 @@ function SearchBar({ items = [], onItemSelect, placeholder }) {
         disabled={!selectedItem}
         onClick={() => selectedItem && onItemSelect(selectedItem)}
       >
-        Buscar
+        <svg
+          width="20"
+          height="20"
+          viewBox="0 0 20 20"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          style={{ display: 'block' }}
+        >
+          <path
+            d="M9 2a7 7 0 105.196 12.032l3.386 3.386a1 1 0 001.415-1.415l-3.386-3.386A7 7 0 009 2zm0 2a5 5 0 110 10A5 5 0 019 4z"
+            fill="currentColor"
+          />
+        </svg>
       </Button>
     </div>
   );
