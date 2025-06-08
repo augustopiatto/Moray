@@ -1,8 +1,10 @@
 import './styles.scss';
 
-function Loader() {
+function Loader({ className }) {
+  const finalClassName = ['loader', className].filter(Boolean).join(' ');
+
   return (
-    <div className="loader" role="status">
+    <div className={finalClassName} role="status">
       <div className="loader__spinner"></div>
     </div>
   );

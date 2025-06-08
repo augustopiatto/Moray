@@ -6,6 +6,7 @@ import { lazy, Suspense, useCallback, useRef, useState } from 'react';
 import Loader from '../../lib/Loader';
 import { LayersControl } from 'react-leaflet';
 import SearchBar from '../../lib/SearchBar';
+import './styles.scss';
 const PopulationModal = lazy(() => import('../PopulationModal'));
 
 CustomMap.propTypes = {
@@ -149,7 +150,7 @@ function CustomMap({ geojson, population }) {
         </LayersControl>
       </MapContainer>
       {isOpened && (
-        <Suspense fallback={<Loader />}>
+        <Suspense fallback={<Loader className="population-modal-loader" />}>
           <PopulationModal
             onClose={onClose}
             selectedPopulation={selectedPopulation}
