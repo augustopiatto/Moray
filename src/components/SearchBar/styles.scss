@@ -9,6 +9,7 @@
   gap: $spacing-m;
 
   .search-bar__input {
+    @include paragraph-small;
     height: 44px;
     width: 400px;
     padding: $spacing-sm $spacing-m;

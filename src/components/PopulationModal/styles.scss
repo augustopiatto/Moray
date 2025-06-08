@@ -4,11 +4,11 @@
   left: 60px;
   z-index: 9999;
   background-color: white;
-  padding: 20px;
-  border-radius: 8px;
+  padding: $spacing-xl;
+  border-radius: $border-radius-m;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: $spacing-m;
 
   .modal__title {
     @include heading-large;
@@ -16,13 +16,13 @@
 
   .modal__close-button {
     position: absolute;
-    top: 20px;
-    right: 20px;
+    top: $spacing-xl;
+    right: $spacing-xl;
   }
 
   .modal__neighborhood-info {
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: $spacing-xs;
   }
 }

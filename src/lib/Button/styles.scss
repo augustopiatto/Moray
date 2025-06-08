@@ -1,8 +1,8 @@
 button {
-  padding: 8px 12px;
-  background-color: #EFEFEF;
+  padding: $spacing-sm $spacing-m;
+  background-color: $color-background-disabled;
   border: none;
-  border-radius: 4px;
+  border-radius: $border-radius-sm;
   position: relative;
   cursor: pointer;
 
@@ -21,7 +21,7 @@ button {
   width: 34px;
   height: 34px;
   padding: 0;
-  border-radius: 50% !important;
+  border-radius: $border-radius-xxl !important;
   display: flex;
   align-items: center;
   justify-content: center;

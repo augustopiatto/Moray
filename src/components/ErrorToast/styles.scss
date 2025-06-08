@@ -1,24 +1,23 @@
 .error-toast {
   position: absolute;
-  bottom: 20px;
-  right: 8px;
+  bottom: $spacing-xl;
+  right: $spacing-sm;
   z-index: 9999;
-  background-color: #F8D7DA;
-  padding: 8px 12px;
-  border-radius: 4px;
+  background-color: $red-light-100;
+  padding: $spacing-sm $spacing-m;
+  border-radius: $border-radius-sm;
   max-width: 400px;
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: $spacing-m;
 
   .toast__content {
-    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-    font-size: 16px;
-    font-weight: 500;
-    color: #721C24;
+    @include label-medium;
+    color: $red-dark-100;
   }
 
   button {
     flex-shrink: 0;
+    color: $red-dark-100;
   }
 }
