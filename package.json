@@ -12,6 +12,7 @@
     "format": "prettier --write ."
   },
   "dependencies": {
+    "@turf/boolean-touches": "^7.2.0",
     "axios": "^1.6.7",
     "leaflet": "^1.9.4",
     "react": "^18.2.0",
