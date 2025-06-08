@@ -6,6 +6,7 @@ Button.propTypes = {
   circle: PropTypes.bool,
   className: PropTypes.string,
   color: PropTypes.string,
+  disabled: PropTypes.bool,
   flat: PropTypes.bool,
   onClick: PropTypes.func.isRequired,
 };

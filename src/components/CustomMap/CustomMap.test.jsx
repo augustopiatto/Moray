@@ -1,4 +1,5 @@
 import { render } from '@testing-library/react';
+import { vi } from 'vitest';
 import CustomMap from '.';
 
 const mockGeojson = {

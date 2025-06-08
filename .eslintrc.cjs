@@ -1,6 +1,6 @@
 module.exports = {
   root: true,
-  env: { browser: true, es2020: true, 'vitest/globals': true },
+  env: { browser: true, es2020: true },
   extends: [
     'eslint:recommended',
     'plugin:react/recommended',
@@ -15,4 +15,10 @@ module.exports = {
     'react/jsx-no-target-blank': 'off',
     'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
   },
+  overrides: [
+    {
+      files: ['**/*.test.js', '**/*.test.jsx'],
+      env: { jest: true },
+    },
+  ],
 };

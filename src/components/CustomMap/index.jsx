@@ -5,6 +5,7 @@ import { GeoJSON } from 'react-leaflet/GeoJSON';
 import { lazy, Suspense, useCallback, useRef, useState } from 'react';
 import Loader from '../../lib/Loader';
 import { LayersControl } from 'react-leaflet';
+import L from 'leaflet';
 import SearchBar from '../../lib/SearchBar';
 import './styles.scss';
 const PopulationModal = lazy(() => import('../PopulationModal'));
@@ -44,14 +45,17 @@ function CustomMap({ geojson, population }) {
 
   const mapRef = useRef();
 
-  function openModal(value) {
-    setIsOpened(true);
-    const filteredPopulation = population.filter(
-      (pop) => pop.id_geometria === value.layer.feature.properties.id
-    );
-    setSelectedPopulation(filteredPopulation);
-    setSelectedNeighborhood(value.layer.feature.properties);
-  }
+  const openModal = useCallback(
+    (value) => {
+      setIsOpened(true);
+      const filteredPopulation = population.filter(
+        (pop) => pop.id_geometria === value.layer.feature.properties.id
+      );
+      setSelectedPopulation(filteredPopulation);
+      setSelectedNeighborhood(value.layer.feature.properties);
+    },
+    [population]
+  );
 
   const onClose = () => setIsOpened(false);
 
