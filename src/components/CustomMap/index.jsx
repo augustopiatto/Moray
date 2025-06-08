@@ -5,7 +5,7 @@ import { GeoJSON } from 'react-leaflet/GeoJSON';
 import { lazy, Suspense, useCallback, useRef, useState } from 'react';
 import Loader from '../../lib/Loader';
 import { LayersControl } from 'react-leaflet';
-import SearchBar from '../SearchBar';
+import SearchBar from '../../lib/SearchBar';
 const PopulationModal = lazy(() => import('../PopulationModal'));
 
 CustomMap.propTypes = {
@@ -116,7 +116,12 @@ function CustomMap({ geojson, population }) {
 
   return (
     <>
-      <SearchBar value={search} onChange={handleInputChange} onSearch={handleSearch} />
+      <SearchBar
+        onChange={handleInputChange}
+        onSearch={handleSearch}
+        placeholder="Buscar bairros..."
+        value={search}
+      />
       <MapContainer
         ref={mapRef}
         style={{ height: '100vh' }}

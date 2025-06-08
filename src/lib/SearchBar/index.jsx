@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import Button from '../../lib/Button';
+import Button from '../Button';
 import './styles.scss';
 
 SearchBar.propTypes = {
@@ -8,13 +8,13 @@ SearchBar.propTypes = {
   onSearch: PropTypes.func.isRequired,
 };
 
-function SearchBar({ value, onChange, onSearch }) {
+function SearchBar({ onChange, onSearch, placeholder, value }) {
   return (
     <div className="search-bar">
       <input
         className="search-bar__input"
         type="text"
-        placeholder="Buscar bairro..."
+        placeholder={placeholder || 'Buscar...'}
         value={value}
         onChange={onChange}
         onKeyDown={(event) => event.key === 'Enter' && onSearch()}
