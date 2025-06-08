@@ -27,6 +27,13 @@ button {
   justify-content: center;
 }
 
+.button--disabled {
+  color: $color-text-disabled !important;
+  background-color: $color-background-disabled !important;
+  border: 1px solid $color-border-dark;
+  cursor: not-allowed !important;
+}
+
 .button--flat {
   box-shadow: none !important;
 }

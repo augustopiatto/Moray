@@ -9,6 +9,8 @@ SearchBar.propTypes = {
 };
 
 function SearchBar({ onChange, onSearch, placeholder, value }) {
+  const isDisabled = value.trim().length < 3;
+
   return (
     <div className="search-bar">
       <input
@@ -17,9 +19,13 @@ function SearchBar({ onChange, onSearch, placeholder, value }) {
         placeholder={placeholder || 'Buscar...'}
         value={value}
         onChange={onChange}
-        onKeyDown={(event) => event.key === 'Enter' && onSearch()}
+        onKeyDown={(event) => {
+          if (event.key === 'Enter' && !isDisabled) {
+            onSearch();
+          }
+        }}
       />
-      <Button className="search-bar__button" onClick={onSearch}>
+      <Button className="search-bar__button" disabled={isDisabled} onClick={onSearch}>
         Buscar
       </Button>
     </div>

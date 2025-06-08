@@ -10,18 +10,24 @@ Button.propTypes = {
   onClick: PropTypes.func.isRequired,
 };
 
-function Button({ children, circle, className, color, flat, onClick }) {
+function Button({ children, circle, className, color, disabled, flat, onClick }) {
   const finalClassName = [
     'button',
     className,
     circle ? 'button--circle' : '',
+    disabled ? 'button--disabled' : '',
     flat ? 'button--flat' : '',
   ]
     .filter(Boolean)
     .join(' ');
 
   return (
-    <button className={finalClassName} style={{ backgroundColor: color }} onClick={onClick}>
+    <button
+      className={finalClassName}
+      style={{ backgroundColor: color }}
+      disabled={disabled}
+      onClick={onClick}
+    >
       {children}
     </button>
   );
