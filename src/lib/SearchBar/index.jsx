@@ -43,10 +43,10 @@ function SearchBar({ items = [], onItemSelect, placeholder }) {
         value={input}
         onChange={handleInputChange}
         onFocus={() => setIsFocused(true)}
-        onBlur={() => setIsFocused(false)}
+        onBlur={() => setTimeout(() => setIsFocused(false), 150)}
         placeholder={placeholder}
-        onKeyDown={(e) => {
-          if (e.key === 'Enter' && selectedItem) {
+        onKeyDown={(event) => {
+          if (event.key === 'Enter' && selectedItem) {
             if (onItemSelect) onItemSelect(selectedItem);
           }
         }}
