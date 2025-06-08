@@ -7,6 +7,7 @@ import Loader from '../../lib/Loader';
 import { LayersControl, ZoomControl } from 'react-leaflet';
 import L from 'leaflet';
 import SearchBar from '../../lib/SearchBar';
+import booleanTouches from '@turf/boolean-touches';
 import './styles.scss';
 const PopulationModal = lazy(() => import('../PopulationModal'));
 
@@ -21,21 +22,12 @@ CustomMap.propTypes = {
   ),
 };
 
-const getColor = (id) => {
-  const colors = [
-    '#6C58FF',
-    '#FF6B6B',
-    '#51CF66',
-    '#FFD43B',
-    '#339AF0',
-    '#F783AC',
-    '#FFA94D',
-    '#63E6BE',
-    '#845EF7',
-    '#FAB005',
-  ];
-  return colors[id % colors.length];
-};
+const COLORS = [
+  '#6C58FF', // roxo
+  '#FF6B6B', // vermelho
+  '#FFD43B', // amarelo
+  '#51CF66', // verde
+];
 
 function CustomMap({ geojson, population }) {
   const [isOpened, setIsOpened] = useState(false);
@@ -44,6 +36,60 @@ function CustomMap({ geojson, population }) {
   const [highlightedId, setHighlightedId] = useState(null);
 
   const mapRef = useRef();
+
+  const featuresWithNeighbors = geojson
+    ? geojson.features.map((feature, i, features) => {
+        const neighbors = [];
+        features.forEach((otherFeature, j) => {
+          if (i !== j && booleanTouches(feature, otherFeature)) {
+            neighbors.push(otherFeature.properties.id);
+          }
+        });
+        return {
+          ...feature,
+          properties: {
+            ...feature.properties,
+            neighbors,
+          },
+        };
+      })
+    : [];
+
+  const buildAdjacency = (features) => {
+    const adjacency = {};
+    features.forEach((feature) => {
+      adjacency[feature.properties.id] = feature.properties.neighbors || [];
+    });
+    return adjacency;
+  };
+
+  const colorGraph = (features, colors) => {
+    const adjacency = buildAdjacency(features);
+    const neighborhoodColors = {};
+
+    features.forEach((feature) => {
+      const id = feature.properties.id;
+      const usedColors = adjacency[id]
+        .map((neighborId) => neighborhoodColors[neighborId])
+        .filter(Boolean);
+      const availableColor = colors.find((color) => !usedColors.includes(color));
+      neighborhoodColors[id] = availableColor || colors[0];
+    });
+
+    return neighborhoodColors;
+  };
+
+  const neighborhoodColors = geojson ? colorGraph(featuresWithNeighbors, COLORS) : {};
+
+  const geoJsonStyle = useCallback(
+    (feature) => ({
+      color: neighborhoodColors[feature.properties.id] || COLORS[0],
+      weight: highlightedId === feature.properties.id ? 6 : 2,
+      fillOpacity: highlightedId === feature.properties.id ? 0.8 : 0.5,
+      fillColor: neighborhoodColors[feature.properties.id] || COLORS[0],
+    }),
+    [highlightedId, neighborhoodColors]
+  );
 
   const openModal = useCallback(
     (value) => {
@@ -58,16 +104,6 @@ function CustomMap({ geojson, population }) {
   );
 
   const onClose = () => setIsOpened(false);
-
-  const geoJsonStyle = useCallback(
-    (feature) => ({
-      color: getColor(feature.properties.id),
-      weight: highlightedId === feature.properties.id ? 6 : 2,
-      fillOpacity: highlightedId === feature.properties.id ? 0.8 : 0.5,
-      fillColor: getColor(feature.properties.id),
-    }),
-    [highlightedId]
-  );
 
   const onEachFeature = useCallback(
     (feature, layer) => {
