@@ -1,3 +1,6 @@
+@import './__colors.module.scss';
+@import './__fonts.module.scss';
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -5,8 +8,8 @@
 }
 
 html {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  color: #333333;
+  font-family: $default-font-family;
+  color: $color-text-black;
 }
 
 .error-message {

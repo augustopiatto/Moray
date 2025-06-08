@@ -1,0 +1,247 @@
+@import './__colors.module.scss';
+
+$default-font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+
+// display
+$display-color: $color-text-black;
+$display-font-family: $default-font-family;
+$display-font-size: 72px;
+$display-font-style: normal;
+$display-font-weight: 700;
+$display-line-height: 88px;
+
+@mixin display {
+  color: $display-color;
+  font-family: $display-font-family;
+  font-size: $display-font-size;
+  font-style: $display-font-style;
+  font-weight: $display-font-weight;
+  line-height: $display-line-height;
+}
+
+// heading
+$heading-xx-large-color: $color-text-black;
+$heading-xx-large-font-family: $default-font-family;
+$heading-xx-large-font-size: 40px;
+$heading-xx-large-font-style: normal;
+$heading-xx-large-font-weight: 600;
+$heading-xx-large-line-height: 52px;
+
+$heading-x-large-color: $color-text-black;
+$heading-x-large-font-family: $default-font-family;
+$heading-x-large-font-size: 32px;
+$heading-x-large-font-style: normal;
+$heading-x-large-font-weight: 600;
+$heading-x-large-line-height: 40px;
+
+$heading-large-color: $color-text-black;
+$heading-large-font-family: $default-font-family;
+$heading-large-font-size: 28px;
+$heading-large-font-style: normal;
+$heading-large-font-weight: 600;
+$heading-large-line-height: 40px;
+
+$heading-medium-color: $color-text-black;
+$heading-medium-font-family: $default-font-family;
+$heading-medium-font-size: 24px;
+$heading-medium-font-style: normal;
+$heading-medium-font-weight: 600;
+$heading-medium-line-height: 32px;
+
+$heading-small-color: $color-text-black;
+$heading-small-font-family: $default-font-family;
+$heading-small-font-size: 20px;
+$heading-small-font-style: normal;
+$heading-small-font-weight: 600;
+$heading-small-line-height: 28px;
+
+$heading-x-small-color: $color-text-black;
+$heading-x-small-font-family: $default-font-family;
+$heading-x-small-font-size: 18px;
+$heading-x-small-font-style: normal;
+$heading-x-small-font-weight: 600;
+$heading-x-small-line-height: 24px;
+
+@mixin heading-xx-large {
+  color: $heading-xx-large-color;
+  font-family: $heading-xx-large-font-family;
+  font-size: $heading-xx-large-font-size;
+  font-style: $heading-xx-large-font-style;
+  font-weight: $heading-xx-large-font-weight;
+  line-height: $heading-xx-large-line-height;
+}
+
+@mixin heading-x-large {
+  color: $heading-x-large-color;
+  font-family: $heading-x-large-font-family;
+  font-size: $heading-x-large-font-size;
+  font-style: $heading-x-large-font-style;
+  font-weight: $heading-x-large-font-weight;
+  line-height: $heading-x-large-line-height;
+}
+
+@mixin heading-large {
+  color: $heading-large-color;
+  font-family: $heading-large-font-family;
+  font-size: $heading-large-font-size;
+  font-style: $heading-large-font-style;
+  font-weight: $heading-large-font-weight;
+  line-height: $heading-large-line-height;
+}
+
+@mixin heading-medium {
+  color: $heading-medium-color;
+  font-family: $heading-medium-font-family;
+  font-size: $heading-medium-font-size;
+  font-style: $heading-medium-font-style;
+  font-weight: $heading-medium-font-weight;
+  line-height: $heading-medium-line-height;
+}
+
+@mixin heading-small {
+  color: $heading-small-color;
+  font-family: $heading-small-font-family;
+  font-size: $heading-small-font-size;
+  font-style: $heading-small-font-style;
+  font-weight: $heading-small-font-weight;
+  line-height: $heading-small-line-height;
+}
+
+@mixin heading-x-small {
+  color: $heading-x-small-color;
+  font-family: $heading-x-small-font-family;
+  font-size: $heading-x-small-font-size;
+  font-style: $heading-x-small-font-style;
+  font-weight: $heading-x-small-font-weight;
+  line-height: $heading-x-small-line-height;
+}
+
+// label
+$label-large-color: $color-text-black;
+$label-large-font-family: $default-font-family;
+$label-large-font-size: 18px;
+$label-large-font-style: normal;
+$label-large-font-weight: 500;
+$label-large-line-height: 24px;
+
+$label-medium-color: $color-text-black;
+$label-medium-font-family: $default-font-family;
+$label-medium-font-size: 16px;
+$label-medium-font-style: normal;
+$label-medium-font-weight: 500;
+$label-medium-line-height: 20px;
+
+$label-small-color: $color-text-black;
+$label-small-font-family: $default-font-family;
+$label-small-font-size: 14px;
+$label-small-font-style: normal;
+$label-small-font-weight: 500;
+$label-small-line-height: 16px;
+
+$label-x-small-color: $color-text-black;
+$label-x-small-font-family: $default-font-family;
+$label-x-small-font-size: 12px;
+$label-x-small-font-style: normal;
+$label-x-small-font-weight: 500;
+$label-x-small-line-height: 16px;
+
+@mixin label-large {
+  color: $label-large-color;
+  font-family: $label-large-font-family;
+  font-size: $label-large-font-size;
+  font-style: $label-large-font-style;
+  font-weight: $label-large-font-weight;
+  line-height: $label-large-line-height;
+}
+
+@mixin label-medium {
+  color: $label-medium-color;
+  font-family: $label-medium-font-family;
+  font-size: $label-medium-font-size;
+  font-style: $label-medium-font-style;
+  font-weight: $label-medium-font-weight;
+  line-height: $label-medium-line-height;
+}
+
+@mixin label-small {
+  color: $label-small-color;
+  font-family: $label-small-font-family;
+  font-size: $label-small-font-size;
+  font-style: $label-small-font-style;
+  font-weight: $label-small-font-weight;
+  line-height: $label-small-line-height;
+}
+
+@mixin label-x-small {
+  color: $label-x-small-color;
+  font-family: $label-x-small-font-family;
+  font-size: $label-x-small-font-size;
+  font-style: $label-x-small-font-style;
+  font-weight: $label-x-small-font-weight;
+  line-height: $label-x-small-line-height;
+}
+
+// paragraph
+$paragraph-large-color: $color-text-black;
+$paragraph-large-font-family: $default-font-family;
+$paragraph-large-font-size: 18px;
+$paragraph-large-font-style: normal;
+$paragraph-large-font-weight: 400;
+$paragraph-large-line-height: 24px;
+
+$paragraph-medium-color: $color-text-black;
+$paragraph-medium-font-family: $default-font-family;
+$paragraph-medium-font-size: 16px;
+$paragraph-medium-font-style: normal;
+$paragraph-medium-font-weight: 400;
+$paragraph-medium-line-height: 20px;
+
+$paragraph-small-color: $color-text-black;
+$paragraph-small-font-family: $default-font-family;
+$paragraph-small-font-size: 14px;
+$paragraph-small-font-style: normal;
+$paragraph-small-font-weight: 400;
+$paragraph-small-line-height: 18px;
+
+$paragraph-x-small-color: $color-text-black;
+$paragraph-x-small-font-family: $default-font-family;
+$paragraph-x-small-font-size: 12px;
+$paragraph-x-small-font-style: normal;
+$paragraph-x-small-font-weight: 400;
+$paragraph-x-small-line-height: 16px;
+
+@mixin paragraph-large {
+  color: $paragraph-large-color;
+  font-family: $paragraph-large-font-family;
+  font-size: $paragraph-large-font-size;
+  font-style: $paragraph-large-font-style;
+  font-weight: $paragraph-large-font-weight;
+  line-height: $paragraph-large-line-height;
+}
+
+@mixin paragraph-medium {
+  color: $paragraph-medium-color;
+  font-family: $paragraph-medium-font-family;
+  font-size: $paragraph-medium-font-size;
+  font-style: $paragraph-medium-font-style;
+  font-weight: $paragraph-medium-font-weight;
+  line-height: $paragraph-medium-line-height;
+}
+
+@mixin paragraph-small {
+  color: $paragraph-small-color;
+  font-family: $paragraph-small-font-family;
+  font-size: $paragraph-small-font-size;
+  font-style: $paragraph-small-font-style;
+  font-weight: $paragraph-small-font-weight;
+  line-height: $paragraph-small-line-height;
+}
+
+@mixin paragraph-x-small {
+  color: $paragraph-x-small-color;
+  font-family: $paragraph-x-small-font-family;
+  font-size: $paragraph-x-small-font-size;
+  font-style: $paragraph-x-small-font-style;
+  font-weight: $paragraph-x-small-font-weight;
+  line-height: $paragraph-x-small-line-height;
+}

@@ -10,5 +10,6 @@
   "printWidth": 100,
   "jsxSingleQuote": false,
   "proseWrap": "preserve",
-  "insertPragma": false
+  "insertPragma": false,
+  "insertFinalNewline": true
 }

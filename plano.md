@@ -8,3 +8,4 @@ Minha intenção de como melhorar o projeto será através dos seguintes passos:
 5. Otimizar performance (uso de hooks) ✅
 6. Criar testes ✅
 7. Criar um pequeno design system ➖
+8. Colocar uma barra de busca de bairro ➖
