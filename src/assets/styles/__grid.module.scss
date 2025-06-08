@@ -6,9 +6,7 @@ $mobile-size: 767px;
     @media (min-width: 768px) and (max-width: $tablet-size) {
       @content;
     }
-  }
-
-  @else if $device ==m {
+  } @else if $device ==m {
     @media (max-width: $mobile-size) {
       @content;
     }
