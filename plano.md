@@ -10,6 +10,7 @@ Minha intenção de como melhorar o projeto será através dos seguintes passos:
 7. Colocar uma barra de busca de bairro ✅
 8. Criar um pequeno design system ✅
 9. Responsividade ✅
+10. Para o caso das cores, utilizei a teoria dos grafos para que os bairros adjacentes nunca fiquem com cores iguais, evitando confusão ao usuário ✅
 
 Explicação da lógica:
 
@@ -35,7 +36,7 @@ Algumas decisões foram feitas baseadas pensando em um possível crescimento do 
 - CustomMap.jsx
 
   - `Cores do mapa`
-    As cores ajudam a diferenciar as áreas que estão próximas entre si, mas caso o endpoint passe a retornar 200 bairros, foi usada uma lógica para reaproveitar as 10 cores escolhidas, mas de forma que áreas próximas vão ficar com cores distintas, evitando confusão.
+    As cores ajudam a diferenciar as áreas que estão próximas entre si, mas caso o endpoint passe a retornar 200 bairros, foi usada um cálculo para reaproveitar as 4 cores escolhidas, mas de forma que áreas próximas vão sempre ficar com cores distintas, evitando confusão.
   - `Nomes dos bairros`
     Caso o usuário esteja vendo uma cidade que não tenha conhecimento da geografia, um auxílio visual sobre qual o nome de cada bairro pode ajudar a localizá-lo. Na eventualidade da api crescer e retornar diversos bairros, confesso que pode ficar poluído, então foi meu plano "A".
     O plano "B" foi colocar Overlay, um filtro das camadas do mapa, no canto superior da direita, para que possa ajudar a visualizar somente os bairros desejados.
@@ -53,3 +54,6 @@ Algumas decisões foram feitas baseadas pensando em um possível crescimento do 
 - Design System
   Acredito que alguns padrões estabelecidos no início do projeto ajudam ele a evoluir de forma mais consistente, e entre esses padrões, os estilos para CSS facilitam muito a vida no futuro, no caso de alterações de cores ou fontes. Também se cria uma identidade visual muito mais fácil do produto.
   Para isso, se criou uma pasta `src/assets/styles` que concentra todos os estilos usados no projeto. É um padrão que já usei em alguns outros projetos meus, e alterei as cores principais e fontes para bater com as da Moray.
+
+- Responsividade
+  Com utilização do Design System, se definiu breakpoints para os tamanhos de tela, de forma que usuários com diferentes dispositivos possam utilizar o projeto com melhor UX.

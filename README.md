@@ -80,6 +80,7 @@ moray
 - Axios – Cliente HTTP baseado em Promises para fazer requisições a APIs de forma simples e eficiente.
 - React Leaflet – Biblioteca que integra o Leaflet ao React, permitindo renderizar mapas interativos e camadas geográficas como componentes React.
 - Recharts – Biblioteca de gráficos baseada em componentes React, ideal para visualização de dados de forma simples e customizável.
+- Turf – Biblioteca JavaScript para análise e manipulação de dados geoespaciais, oferecendo funções para operações com polígonos, cálculo de distâncias, detecção de vizinhança, entre outras tarefas de geoprocessamento no frontend.
 - Testing Library – Ferramenta para testes de componentes React focada na experiência do usuário, promovendo boas práticas de testes.
 - Eslint – Ferramenta de linting para identificar e corrigir problemas de estilo e possíveis erros em código JavaScript/TypeScript.
 - Prettier – Formatador de código automático que garante um padrão consistente de formatação em todo o projeto.
